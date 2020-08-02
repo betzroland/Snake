@@ -1,6 +1,7 @@
 #include <iostream>
-#include <windows.h>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 #include <time.h>
 #include <string>
 #include <fstream>
@@ -54,34 +55,29 @@ int db=4;
 int main()
 {
     srand(time(NULL));
-    RenderWindow window(VideoMode(N*pixel,M*pixel), "Snake", Style::Close);     //30x20 db négyzetbõl épül a pálya
-    Texture t1;
-    t1.loadFromFile("grid.png");
-    Sprite sprite1(t1);
-    Sprite sprite2(t1);
+    RenderWindow window(VideoMode(N*pixel,M*pixel), "Snake");     //30x20 db négyzetbõl épül a pálya
+    Texture texture;
+    texture.loadFromFile("grid.png");
+    Sprite sprite1(texture);
+    Sprite sprite2(texture);
     sprite2.setColor(Color(0, 255, 0));     //Zöld színû négyzet a kígyó "testéhez".
-    direction=0;
     Fruit fruit;
+    Event event;
 
-    while(window.isOpen()){
+    for(int i=0; i<db; i++){
+            s[i].x=db-1-i;
+            s[i].y=M/2-1;
+            sprite2.setPosition(s[i].x*pixel,s[i].y*pixel);
+            window.draw(sprite2);
+        }
 
-        Event event;
-        while(window.pollEvent(event)){     //Megvizsgálja, van-e függőben esemény.
+    while(window.isOpen() && IsOver(s, db)==false){
+
+    while(window.pollEvent(event)){     //Megvizsgálja, van-e függőben esemény.
             if(event.type==Event::Closed){  //Ha az esemény: ablak bezárása utasítás -->
                 window.close();             //--> Bezárja az ablakot.
             }
         }
-
-    if(direction==0){
-    for(int i=0; i<db; i++){
-            s[i].x=db-1-i;
-            s[i].y=0;
-            sprite2.setPosition(s[i].x*pixel,s[i].y*pixel);
-            window.draw(sprite2);
-        }
-        }
-
-    while(IsOver(s, db)==false){                  //Amíg nincs ütközés, megy a játék.
 
     for (int i=0; i<N; i++){
       for (int j=0; j<M; j++){
@@ -172,9 +168,10 @@ int main()
     }
     window.display();
     sleep(sf::milliseconds(80));
-    }
+    //-------------------
 
-    sleep(sf::milliseconds(1200));
+    if(IsOver(s, db)){
+    sleep(sf::milliseconds(1000));
     window.clear();
     Text text1;
     Text text2;
@@ -196,6 +193,9 @@ int main()
     window.draw(text1);
     window.draw(text2);
     window.display();
+    sleep(milliseconds(2500));
+    }
     }
     return 0;
 }
+
