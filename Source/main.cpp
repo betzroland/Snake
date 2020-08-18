@@ -14,13 +14,13 @@ int main()
     Draw draw;
     Engine engine;
 
-    RenderWindow window(VideoMode(engine.N*draw.pixel,engine.M*draw.pixel), "Snake");
+    RenderWindow window(VideoMode(draw.N*draw.pixel,draw.M*draw.pixel), "Snake");
 
     draw.draw_openingwindow(window);
 
-    engine.set_startposition(draw.sprite2, draw.pixel, window);
+    engine.set_startposition(draw.sprite2, draw.pixel, window, draw.M, draw.N);
 
-    while(window.isOpen() && engine.IsOver()==false){
+    while(window.isOpen() && engine.IsOver(draw.M, draw.N)==false){
 
         while(window.pollEvent(event)){
             if(event.type==Event::Closed){
@@ -28,18 +28,18 @@ int main()
             }
         }
 
-        draw.draw_field(engine.M, engine.N, window);
+        draw.draw_field(window);
 
         engine.move_control(draw.sprite2, draw.pixel, window);
 
-        engine.fruit_generator(draw.sprite2, draw.pixel, window);
+        engine.fruit_generator(draw.sprite2, draw.pixel, window, draw.M, draw.N);
 
         window.display();
 
-        if(engine.IsOver()){
-            draw.draw_gameover(window, engine.db, engine.M, engine.N);
+        if(engine.IsOver(draw.M, draw.N)){
+            draw.draw_gameover(window, engine.db);
         }
-        sleep(milliseconds(90));
+        sleep(milliseconds(100));
     }
 return 0;
 }

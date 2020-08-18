@@ -5,19 +5,13 @@
 using namespace std;
 using namespace sf;
 
-    string intToString(int t){
-            string s;
-            ostringstream out;
-            out << t;
-            s = out.str();
-            return s;
-        }
-
     Draw::Draw(){
+    M=18;
+    N=24;
     texture.loadFromFile("grid.png");
     sprite1.setTexture(texture);
     sprite2.setTexture(texture);
-    sprite2.setColor(Color(0, 255, 0));     //Zöld színû négyzet a kígyó "testéhez".
+    sprite2.setColor(Color(0, 255, 0));
     pixel=20;
     }
 
@@ -53,7 +47,7 @@ using namespace sf;
     for(int i=3; i>=0; i--){
     seconds=i;
     text1.setString("Game starts in");
-    text2.setString(intToString(seconds));
+    text2.setString(to_string(seconds));
     text3.setString("seconds!");
 
     window.draw(text1);
@@ -68,16 +62,16 @@ using namespace sf;
     window.clear();
 }
 
-void Draw::draw_field(int& M, int& N, RenderWindow& window){
+void Draw::draw_field(RenderWindow& window){
     for (int i=0; i<N; i++){
       for (int j=0; j<M; j++){
-        sprite1.setPosition(i*pixel, j*pixel);    //Pixelben adjuk meg az adott pozíciót (egy négyzet 20x20-as)
-        window.draw(sprite1);                     //Kirajzolja a sprite-ot a megadott pozícióba.
+        sprite1.setPosition(i*pixel, j*pixel);
+        window.draw(sprite1);
         }
         }
 }
 
-void Draw::draw_gameover(RenderWindow& window, int& db, int& M, int& N){
+void Draw::draw_gameover(RenderWindow& window, int& db){
 
     sleep(milliseconds(1000));
     window.clear();
@@ -89,7 +83,7 @@ void Draw::draw_gameover(RenderWindow& window, int& db, int& M, int& N){
     text1.setFont(font);
     text2.setFont(font);
     text1.setString("Game over!");
-    text2.setString("Score: "+intToString(db-4));
+    text2.setString("Score: "+to_string(db-4));
     text1.setCharacterSize(24);
     text2.setCharacterSize(24);
     text1.setFillColor(Color::Green);
