@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "Draw.h"
+#include "Engine.h"
 
 using namespace std;
 using namespace sf;
@@ -97,4 +98,16 @@ void Draw::draw_gameover(RenderWindow& window, int& db){
     window.draw(text2);
     window.display();
     sleep(milliseconds(2500));
+}
+
+void Draw::draw_snake(sf::RenderWindow& window, int& db, Snake* snake){
+    for(int i=0; i<db; i++){
+        sprite2.setPosition(snake[i].x*pixel, snake[i].y*pixel);
+        window.draw(sprite2);
+    }
+}
+
+void Draw::draw_fruit(sf::RenderWindow& window, Fruit& fruit){
+    sprite2.setPosition(fruit.x*pixel, fruit.y*pixel);
+    window.draw(sprite2);
 }

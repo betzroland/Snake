@@ -21,20 +21,14 @@ bool Engine::IsOver(int& M, int& N){
     return false;
 }
 
-void Engine::set_startposition(Sprite& sprite2, int& pixel, RenderWindow& window, int& M, int& N){
+void Engine::set_startposition(int& M){
     for(int i=0; i<db; i++){
         snake[i].x=db-1-i;
         snake[i].y=M/2-1;
-        sprite2.setPosition(snake[i].x*pixel,snake[i].y*pixel);
-        window.draw(sprite2);
         }
-        fruit.x=rand()%N;
-        fruit.y=rand()%M;
-        sprite2.setPosition(fruit.x*pixel,fruit.y*pixel);
-        window.draw(sprite2);
 }
 
-void Engine::move_control(Sprite& sprite2, int& pixel, RenderWindow& window){
+void Engine::move_control(){
 
     if(Keyboard::isKeyPressed(Keyboard::Up))        direction=1;
     if(Keyboard::isKeyPressed(Keyboard::Down))      direction=2;
@@ -45,71 +39,31 @@ void Engine::move_control(Sprite& sprite2, int& pixel, RenderWindow& window){
         for(int i=db-1; i>0; i--){
             snake[i].x=snake[i-1].x;
             snake[i].y=snake[i-1].y;
-            sprite2.setPosition(snake[i].x*pixel,snake[i].y*pixel);
-            window.draw(sprite2);
         }
         snake[0].y=snake[0].y-1;
-        sprite2.setPosition(snake[0].x*pixel,snake[0].y*pixel);
-        window.draw(sprite2);
     }
 
     if(direction==2){
         for(int i=db-1; i>0; i--){
             snake[i].x=snake[i-1].x;
             snake[i].y=snake[i-1].y;
-            sprite2.setPosition(snake[i].x*pixel,snake[i].y*pixel);
-            window.draw(sprite2);
         }
         snake[0].y=snake[0].y+1;
-        sprite2.setPosition(snake[0].x*pixel,snake[0].y*pixel);
-        window.draw(sprite2);
     }
 
     if(direction==3){
         for(int i=db-1; i>0; i--){
             snake[i].x=snake[i-1].x;
             snake[i].y=snake[i-1].y;
-            sprite2.setPosition(snake[i].x*pixel,snake[i].y*pixel);
-            window.draw(sprite2);
         }
         snake[0].x=snake[0].x-1;
-        sprite2.setPosition(snake[0].x*pixel,snake[0].y*pixel);
-        window.draw(sprite2);
     }
 
     if(direction==4){
         for(int i=db-1; i>0; i--){
             snake[i].x=snake[i-1].x;
             snake[i].y=snake[i-1].y;
-            sprite2.setPosition(snake[i].x*pixel, snake[i].y*pixel);
-            window.draw(sprite2);
             }
             snake[0].x=snake[0].x+1;
-            sprite2.setPosition(snake[0].x*pixel, snake[0].y*pixel);
-            window.draw(sprite2);
-    }
-}
-
-void Engine::fruit_generator(Sprite& sprite2, int& pixel, RenderWindow& window, int& M, int& N){
-
-    sprite2.setPosition(fruit.x*pixel, fruit.y*pixel);
-    window.draw(sprite2);
-
-    int j=1;
-    while(j<db){
-        if(fruit.x==snake[j].x && fruit.y==snake[j].y){
-            fruit.x=rand()%N;
-            fruit.y=rand()%M;
-            sprite2.setPosition(fruit.x*pixel, fruit.y*pixel);
-            window.draw(sprite2);
-            j=1;
-        }
-        j++;
-    }
-
-    if(fruit.x==snake[0].x && fruit.y==snake[0].y){
-        db=db+1;
-        fruit.x=rand()%N;
-        fruit.y=rand()%M;
     }
 }

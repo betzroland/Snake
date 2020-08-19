@@ -10,15 +10,13 @@ int main()
 {
     srand(time(NULL));
 
-    Event event;
-    Draw draw;
-    Engine engine;
+    Event event;   Draw draw;   Engine engine;   Fruit fruit;
 
     RenderWindow window(VideoMode(draw.N*draw.pixel,draw.M*draw.pixel), "Snake");
 
     draw.draw_openingwindow(window);
-
-    engine.set_startposition(draw.sprite2, draw.pixel, window, draw.M, draw.N);
+    engine.set_startposition(draw.M);
+    fruit.set_startposition(draw.M, draw.N);
 
     while(window.isOpen() && engine.IsOver(draw.M, draw.N)==false){
 
@@ -30,16 +28,17 @@ int main()
 
         draw.draw_field(window);
 
-        engine.move_control(draw.sprite2, draw.pixel, window);
+        draw.draw_fruit(window, fruit);
 
-        engine.fruit_generator(draw.sprite2, draw.pixel, window, draw.M, draw.N);
+        draw.draw_snake(window, engine.db, engine.snake);
+
+        engine.move_control();
+
+        fruit.fruit_generator(draw.M, draw.N, engine.snake, engine.db);
 
         window.display();
-
-        if(engine.IsOver(draw.M, draw.N)){
-            draw.draw_gameover(window, engine.db);
-        }
         sleep(milliseconds(100));
     }
+    draw.draw_gameover(window, engine.db);
 return 0;
 }
