@@ -1,14 +1,14 @@
 #ifndef FRUIT_H_INCLUDED
 #define FRUIT_H_INCLUDED
-#include "Engine.h"
+#include "Snake.h"
 
 class Fruit{
 public:
     int x, y;
 
-    void set_startposition(int& M, int& N);
+    void set_startposition(const int M, const int N);   // Setting the position of the first fruit.
 
-    void fruit_generator(int& M, int& N, Snake* snake, int& db);
+    void fruit_generator(const int M, const int N, Snk* snk, int& db);  // Generates new fruits.
 
 };
 
