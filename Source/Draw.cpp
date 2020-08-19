@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 #include "Draw.h"
-#include "Engine.h"
+#include "Snake.h"
 
 using namespace std;
 using namespace sf;
@@ -72,7 +72,7 @@ void Draw::draw_field(RenderWindow& window){
         }
 }
 
-void Draw::draw_gameover(RenderWindow& window, int& db){
+void Draw::draw_gameover(RenderWindow& window, const int db){
 
     sleep(milliseconds(1000));
     window.clear();
@@ -100,14 +100,14 @@ void Draw::draw_gameover(RenderWindow& window, int& db){
     sleep(milliseconds(2500));
 }
 
-void Draw::draw_snake(sf::RenderWindow& window, int& db, Snake* snake){
+void Draw::draw_snake(sf::RenderWindow& window, const int db, Snk* snk){
     for(int i=0; i<db; i++){
-        sprite2.setPosition(snake[i].x*pixel, snake[i].y*pixel);
+        sprite2.setPosition(snk[i].x*pixel, snk[i].y*pixel);
         window.draw(sprite2);
     }
 }
 
-void Draw::draw_fruit(sf::RenderWindow& window, Fruit& fruit){
+void Draw::draw_fruit(sf::RenderWindow& window, const Fruit fruit){
     sprite2.setPosition(fruit.x*pixel, fruit.y*pixel);
     window.draw(sprite2);
 }

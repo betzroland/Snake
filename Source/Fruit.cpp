@@ -1,25 +1,25 @@
 #include "Fruit.h"
-#include "Engine.h"
+#include "Snake.h"
 
 using namespace std;
 using namespace sf;
 
-    void Fruit::set_startposition(int& M, int& N){
+    void Fruit::set_startposition(const int M, const int N){
         x=rand()%N;
         y=rand()%M;
     }
 
-    void Fruit::fruit_generator(int& M, int& N, Snake* snake, int& db){
+    void Fruit::fruit_generator(const int M, const int N, Snk* snk, int& db){
     int j=1;
     while(j<db){
-        if(x==snake[j].x && y==snake[j].y){
+        if(x==snk[j].x && y==snk[j].y){
             x=rand()%N;
             y=rand()%M;
             j=1;
         }
         j++;
     }
-    if(x==snake[0].x && y==snake[0].y){
+    if(x==snk[0].x && y==snk[0].y){
         db=db+1;
         x=rand()%N;
         y=rand()%M;
