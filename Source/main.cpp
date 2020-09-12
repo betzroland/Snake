@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <time.h>
-#include "Draw.h"
-#include "Snake.h"
+#include "Opening&Gameover_window.h"
+#include "Field.h"
+#include "Fruit.h"
 
 using namespace std;
 using namespace sf;
@@ -10,15 +11,18 @@ int main()
 {
     srand(time(NULL));
 
-    Event event;   Draw draw;   Snake snake;   Fruit fruit;
+    Event event;
+    Opening_and_gameover_window openAndGameover;
+    Snake snake;
+    SpritesAndTextures sprites_and_textures;
+    Field field;
+    Fruit fruit(field);
 
-    RenderWindow window(VideoMode(draw.N*draw.pixel,draw.M*draw.pixel), "Snake");
+    RenderWindow window(VideoMode(field.N*sprites_and_textures.pixel,field.M*sprites_and_textures.pixel), "Snake");
 
-    draw.draw_openingwindow(window);
-    snake.set_startposition(draw.M);
-    fruit.set_startposition(draw.M, draw.N);
+    openAndGameover.draw_openingwindow(window);
 
-    while(window.isOpen() && snake.IsOver(draw.M, draw.N)==false){
+    while(window.isOpen() && snake.IsOver(field)==false){
 
         while(window.pollEvent(event)){
             if(event.type==Event::Closed){
@@ -26,19 +30,19 @@ int main()
             }
         }
 
-        draw.draw_field(window);
+        field.draw_field(window, sprites_and_textures);
 
-        draw.draw_fruit(window, fruit);
+        fruit.draw_fruit(window, sprites_and_textures);
 
-        draw.draw_snake(window, snake.db, snake.snk);
+        snake.draw_snake(window, sprites_and_textures);
 
         snake.move_control();
 
-        fruit.fruit_generator(draw.M, draw.N, snake.snk, snake.db);
+        fruit.fruit_generator(snake, field);
 
         window.display();
         sleep(milliseconds(100));
     }
-    draw.draw_gameover(window, snake.db);
+    openAndGameover.draw_gameover(window, snake);
 return 0;
 }

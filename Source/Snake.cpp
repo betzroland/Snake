@@ -1,4 +1,3 @@
-#include <SFML/Graphics.hpp>
 #include "Snake.h"
 
 using namespace std;
@@ -6,11 +5,16 @@ using namespace sf;
 
 Snake::Snake(){
     direction=4;
-    db=4;
+    db_at_beginning=3;
+    db=db_at_beginning;
+    for(int i=0; i<db; i++){
+        snk[i].x=db-1-i;
+        snk[i].y=0;
+        }
 }
 
-bool Snake::IsOver(const int M, const int N){
-    if(snk[0].x==-1 || snk[0].x==N || snk[0].y==-1 || snk[0].y==M){
+bool Snake::IsOver(Field& field){
+    if(snk[0].x==-1 || snk[0].x==field.N || snk[0].y==-1 || snk[0].y==field.M){
         return true;
     }
     for(int i=1; i<db; i++){
@@ -19,13 +23,6 @@ bool Snake::IsOver(const int M, const int N){
         }
     }
     return false;
-}
-
-void Snake::set_startposition(const int M){
-    for(int i=0; i<db; i++){
-        snk[i].x=db-1-i;
-        snk[i].y=M/2-1;
-        }
 }
 
 void Snake::move_control(){
@@ -65,5 +62,12 @@ void Snake::move_control(){
             snk[i].y=snk[i-1].y;
             }
             snk[0].x=snk[0].x+1;
+    }
+}
+
+void Snake::draw_snake(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures){
+    for(int i=0; i<db; i++){
+        sprites_and_textures.sprite2.setPosition(snk[i].x*sprites_and_textures.pixel, snk[i].y*sprites_and_textures.pixel);
+        window.draw(sprites_and_textures.sprite2);
     }
 }
