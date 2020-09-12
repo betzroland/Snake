@@ -1,14 +1,18 @@
 #ifndef FRUIT_H_INCLUDED
 #define FRUIT_H_INCLUDED
+#include "Field.h"
+#include "Sprites&Textures.h"
 #include "Snake.h"
 
 class Fruit{
 public:
     int x, y;
 
-    void set_startposition(const int M, const int N);   // Setting the position of the first fruit.
+    Fruit(Field& field);
 
-    void fruit_generator(const int M, const int N, Snk* snk, int& db);  // Generates new fruits.
+    void fruit_generator(Snake& snake, Field& field);  // Generates new fruits.
+
+    void draw_fruit(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures);
 
 };
 
