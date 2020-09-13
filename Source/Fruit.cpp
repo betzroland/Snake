@@ -3,29 +3,19 @@
 using namespace std;
 using namespace sf;
 
-    Fruit::Fruit(Field& field){
+    Fruit::Fruit(const Field& field){
         x=rand()%field.N;
         y=rand()%field.M;
     }
 
-    void Fruit::fruit_generator(Snake& snake, Field& field){
+    void Fruit::fruit_generator(const Snake& snake, const Field& field){
     int j=1;
-    while(j<snake.db){
+    while(j<snake.snake_bodyparts){
         if(x==snake.snk[j].x && y==snake.snk[j].y){
             x=rand()%field.N;
             y=rand()%field.M;
             j=1;
-        }
+            }
         j++;
+        }
     }
-    if(x==snake.snk[0].x && y==snake.snk[0].y){
-        snake.db++;
-        x=rand()%field.N;
-        y=rand()%field.M;
-    }
-}
-
-void Fruit::draw_fruit(RenderWindow& window, SpritesAndTextures& sprites_and_textures){
-    sprites_and_textures.sprite2.setPosition(x*sprites_and_textures.pixel, y*sprites_and_textures.pixel);
-    window.draw(sprites_and_textures.sprite2);
-}

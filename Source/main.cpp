@@ -12,17 +12,18 @@ int main()
     srand(time(NULL));
 
     Event event;
-    Opening_and_gameover_window openAndGameover;
-    Snake snake;
+    OpeningAndGameoverWindow opening_and_gameover_window;
     SpritesAndTextures sprites_and_textures;
     Field field;
+    Snake snake;
     Fruit fruit(field);
+    RenderWindow window(VideoMode(field.N*sprites_and_textures.pixel,
+                                    field.M*sprites_and_textures.pixel), "Snake");
 
-    RenderWindow window(VideoMode(field.N*sprites_and_textures.pixel,field.M*sprites_and_textures.pixel), "Snake");
 
-    openAndGameover.draw_openingwindow(window);
+    opening_and_gameover_window.draw_openingwindow(window);
 
-    while(window.isOpen() && snake.IsOver(field)==false){
+    while(window.isOpen()==true && snake.IsGameOver(field)==false){
 
         while(window.pollEvent(event)){
             if(event.type==Event::Closed){
@@ -38,11 +39,15 @@ int main()
 
         snake.move_control();
 
+        fruit.eat_fruit(snake, field);
+
         fruit.fruit_generator(snake, field);
 
         window.display();
         sleep(milliseconds(100));
     }
-    openAndGameover.draw_gameover(window, snake);
+
+    opening_and_gameover_window.draw_gameoverwindow(window, snake);
+
 return 0;
 }

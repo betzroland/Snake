@@ -3,32 +3,32 @@
 using namespace std;
 using namespace sf;
 
-Opening_and_gameover_window::Opening_and_gameover_window(){
+OpeningAndGameoverWindow::OpeningAndGameoverWindow(){
 
     font.loadFromFile("arial.ttf");
 
-    text1.setFont(font);
-    text1.setCharacterSize(24);
-    text1.setFillColor(Color::Green);
-    text1.setStyle(Text::Bold);
+    line1.setFont(font);
+    line1.setCharacterSize(24);
+    line1.setFillColor(Color::Green);
+    line1.setStyle(Text::Bold);
 
-    text3=text2=text1;
+    line3=line2=line1;
     }
 
-void Opening_and_gameover_window::draw_openingwindow(RenderWindow& window){
+void OpeningAndGameoverWindow::draw_openingwindow(RenderWindow& window){
 
-    text1.setPosition(145, 100);
-    text2.setPosition(225, 140);
-    text3.setPosition(180, 180);
+    line1.setPosition(145, 100);
+    line2.setPosition(225, 140);
+    line3.setPosition(180, 180);
 
     for(int seconds=3; seconds>=0; seconds--){
-    text1.setString("Game starts in");
-    text2.setString(to_string(seconds));
-    text3.setString("seconds!");
+    line1.setString("Game starts in");
+    line2.setString(to_string(seconds));
+    line3.setString("seconds!");
 
-    window.draw(text1);
-    window.draw(text2);
-    window.draw(text3);
+    window.draw(line1);
+    window.draw(line2);
+    window.draw(line3);
 
     window.display();
     sleep(milliseconds(950));
@@ -36,19 +36,19 @@ void Opening_and_gameover_window::draw_openingwindow(RenderWindow& window){
     }
 }
 
-void Opening_and_gameover_window::draw_gameover(RenderWindow& window, Snake& snake){
+void OpeningAndGameoverWindow::draw_gameoverwindow(RenderWindow& window, const Snake& snake){
 
     sleep(milliseconds(1000));
     window.clear();
 
-    text1.setString("Game over!");
-    text2.setString("Score: "+to_string(snake.db-snake.db_at_beginning));
+    line1.setString("Game over!");
+    line2.setString("Score: " + to_string(snake.snake_bodyparts - snake.snake_bodyparts_at_start));
 
-    text1.setPosition(145, 100);
-    text2.setPosition(165, 140);
+    line1.setPosition(145, 100);
+    line2.setPosition(165, 140);
 
-    window.draw(text1);
-    window.draw(text2);
+    window.draw(line1);
+    window.draw(line2);
 
     window.display();
     sleep(milliseconds(2000));
