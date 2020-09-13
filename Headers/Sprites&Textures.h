@@ -5,8 +5,8 @@
 class SpritesAndTextures{
 public:
     int pixel;
-    sf::Texture texture;
-    sf::Sprite sprite1, sprite2;
+    sf::Texture tile;
+    sf::Sprite sprite_of_field, sprite_of_snake, sprite_of_fruit;
 
     SpritesAndTextures();
 };

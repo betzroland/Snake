@@ -8,7 +8,7 @@ public:
 
     Field();
 
-    void draw_field(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures);
+    void draw_field(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const;
 };
 
 #endif // FIELD_H_INCLUDED

@@ -3,16 +3,16 @@
 #include <SFML/Graphics.hpp>
 #include "Snake.h"
 
-class Opening_and_gameover_window{
+class OpeningAndGameoverWindow{
 public:
-    sf::Text text1, text2, text3;
+    sf::Text line1, line2, line3;
     sf::Font font;
 
-Opening_and_gameover_window();
+OpeningAndGameoverWindow();
 
 void draw_openingwindow(sf::RenderWindow& window);
 
-void draw_gameover(sf::RenderWindow& window, Snake& snake);
+void draw_gameoverwindow(sf::RenderWindow& window, const Snake& snake);
 
 };
 
