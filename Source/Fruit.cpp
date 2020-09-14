@@ -3,17 +3,17 @@
 using namespace std;
 using namespace sf;
 
-    Fruit::Fruit(const Field& field){
-        x=rand()%field.N;
-        y=rand()%field.M;
+    Fruit::Fruit(){
+        x=rand()%Field::N;
+        y=rand()%Field::M;
     }
 
-    void Fruit::fruit_generator(const Snake& snake, const Field& field){
+    void Fruit::fruit_generator(const Snake& snake){
     int j=1;
-    while(j<snake.number_of_snk_elements){
+    while(j<snake.snake_bodyparts){
         if(x==snake.snk[j].x && y==snake.snk[j].y){
-            x=rand()%field.N;
-            y=rand()%field.M;
+            x=rand()%Field::N;
+            y=rand()%Field::M;
             j=1;
             }
         j++;

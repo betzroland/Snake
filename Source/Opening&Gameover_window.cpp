@@ -42,7 +42,7 @@ void OpeningAndGameoverWindow::draw_gameoverwindow(RenderWindow& window, const S
     window.clear();
 
     line1.setString("Game over!");
-    line2.setString("Score: "+to_string(snake.number_of_snk_elements-snake.snk_elements_at_start));
+    line2.setString("Score: " + to_string(snake.snake_bodyparts - snake.snake_bodyparts_at_start));
 
     line1.setPosition(145, 100);
     line2.setPosition(165, 140);

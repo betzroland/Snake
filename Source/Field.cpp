@@ -3,11 +3,6 @@
 using namespace std;
 using namespace sf;
 
-Field::Field(){
-    M=18;
-    N=24;
-}
-
 void Field::draw_field(RenderWindow& window, SpritesAndTextures& sprites_and_textures) const{
     for (int i=0; i<N; i++){
       for (int j=0; j<M; j++){
