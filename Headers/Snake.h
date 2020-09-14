@@ -11,16 +11,26 @@ public:
     };
     Snk snk[100];
     int direction;
-    int number_of_snk_elements;
-    int snk_elements_at_start;
+    int snake_bodyparts;
+    int snake_bodyparts_at_start;
 
     Snake();
 
-    bool IsGameOver(Field& field) const;
-
     void move_control();
 
+    void matching_keys_to_directions();
+
+    void move_upward();
+    void move_downward();
+    void move_leftward();
+    void move_rightward();
+
     void draw_snake(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const;
+
+    bool IsGameOver() const;
+
+    bool IsWallHit() const;
+    bool IsBodyHit() const;
 };
 
 #endif // Snake_H_INCLUDED

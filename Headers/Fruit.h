@@ -9,21 +9,21 @@ class Fruit{
 public:
     int x, y;
 
-    Fruit(const Field& field);
+    Fruit();
 
-    void fruit_generator(const Snake& snake, const Field& field);
+    void fruit_generator(const Snake& snake);
 
-    void eat_fruit(Snake& snake, const Field& field);
+    void eat_fruit(Snake& snake);
 
     void draw_fruit(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const;
 
 };
 
-    inline void Fruit::eat_fruit(Snake& snake, const Field& field){
+    inline void Fruit::eat_fruit(Snake& snake){
         if(x==snake.snk[0].x && y==snake.snk[0].y){
-            snake.number_of_snk_elements++;
-            x=rand()%field.N;
-            y=rand()%field.M;
+            snake.snake_bodyparts++;
+            x=rand()%Field::N;
+            y=rand()%Field::M;
         }
     }
 
