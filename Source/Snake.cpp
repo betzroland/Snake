@@ -17,21 +17,23 @@ void Snake::move_control(){
 
     Snake::matching_keys_to_directions();
 
+    Snake::move_tail();
+
     switch(direction){
     case 1 :
-        Snake::move_upward();
+        Snake::move_head_upward();
         break;
 
     case 2 :
-        Snake::move_downward();
+        Snake::move_head_downward();
         break;
 
     case 3 :
-        Snake::move_leftward();
+        Snake::move_head_leftward();
         break;
 
     case 4 :
-        Snake::move_rightward();
+        Snake::move_head_rightward();
     }
 }
 
@@ -42,42 +44,33 @@ void Snake::matching_keys_to_directions(){
     if(Keyboard::isKeyPressed(Keyboard::Right) && direction!=3)     direction=4;
 }
 
-void Snake::move_upward(){
-    for(int i=snake_bodyparts-1; i>0; i--){
-        snk[i].x=snk[i-1].x;
-        snk[i].y=snk[i-1].y;
-    }
+void Snake::move_head_upward(){
     snk[0].y=snk[0].y-1;
 }
 
-void Snake::move_downward(){
-    for(int i=snake_bodyparts-1; i>0; i--){
-        snk[i].x=snk[i-1].x;
-        snk[i].y=snk[i-1].y;
-    }
+void Snake::move_head_downward(){
     snk[0].y=snk[0].y+1;
 }
 
-void Snake::move_leftward(){
+void Snake::move_head_leftward(){
+    snk[0].x=snk[0].x-1;
+}
+
+void Snake::move_head_rightward(){
+    snk[0].x=snk[0].x+1;
+}
+
+void Snake::move_tail(){
     for(int i=snake_bodyparts-1; i>0; i--){
         snk[i].x=snk[i-1].x;
         snk[i].y=snk[i-1].y;
     }
-    snk[0].x=snk[0].x-1;
 }
 
-void Snake::move_rightward(){
-    for(int i=snake_bodyparts-1; i>0; i--){
-        snk[i].x=snk[i-1].x;
-        snk[i].y=snk[i-1].y;
-        }
-    snk[0].x=snk[0].x+1;
-}
-
-void Snake::draw_snake(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const{
+void Snake::draw_snake(sf::RenderWindow& window, Sprites& sprites) const{
     for(int i=0; i<snake_bodyparts; i++){
-        sprites_and_textures.sprite_of_snake.setPosition(snk[i].x*sprites_and_textures.pixel, snk[i].y*sprites_and_textures.pixel);
-        window.draw(sprites_and_textures.sprite_of_snake);
+        sprites.sprite_of_snake.setPosition(snk[i].x*sprites.pixel, snk[i].y*sprites.pixel);
+        window.draw(sprites.sprite_of_snake);
     }
 }
 
@@ -87,7 +80,7 @@ bool Snake::IsGameOver() const{
 }
 
 bool Snake::IsWallHit() const{
-    if(snk[0].x==-1 || snk[0].x==Field::N || snk[0].y==-1 || snk[0].y==Field::M){
+    if(snk[0].x==-1 || snk[0].x==Field::width || snk[0].y==-1 || snk[0].y==Field::height){
         return true;
     }
     else return false;

@@ -2,7 +2,7 @@
 #define Snake_H_INCLUDED
 #include <SFML/Graphics.hpp>
 #include "Field.h"
-#include "Sprites&Textures.h"
+#include "Sprites.h"
 
 class Snake{
 public:
@@ -20,12 +20,13 @@ public:
 
     void matching_keys_to_directions();
 
-    void move_upward();
-    void move_downward();
-    void move_leftward();
-    void move_rightward();
+    void move_tail();
+    void move_head_upward();
+    void move_head_downward();
+    void move_head_leftward();
+    void move_head_rightward();
 
-    void draw_snake(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const;
+    void draw_snake(sf::RenderWindow& window, Sprites& sprites) const;
 
     bool IsGameOver() const;
 

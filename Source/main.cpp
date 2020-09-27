@@ -7,8 +7,10 @@ using namespace sf;
 
 int main()
 {
-    srand(time(NULL));
     Game game;
+
+    srand(time(NULL));
+
     RenderWindow window(VideoMode(480, 360), "Snake");
 
     game.play_game(window);

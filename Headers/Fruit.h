@@ -2,34 +2,35 @@
 #define FRUIT_H_INCLUDED
 #include <SFML/Graphics.hpp>
 #include "Field.h"
-#include "Sprites&Textures.h"
+#include "Sprites.h"
 #include "Snake.h"
 
 class Fruit{
-public:
+private:
     int x, y;
 
+public:
     Fruit();
 
     void fruit_generator(const Snake& snake);
 
     void eat_fruit(Snake& snake);
 
-    void draw_fruit(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const;
+    void draw_fruit(sf::RenderWindow& window, Sprites& sprites) const;
 
 };
 
     inline void Fruit::eat_fruit(Snake& snake){
         if(x==snake.snk[0].x && y==snake.snk[0].y){
             snake.snake_bodyparts++;
-            x=rand()%Field::N;
-            y=rand()%Field::M;
+            x=rand()%Field::width;
+            y=rand()%Field::height;
         }
     }
 
-    inline void Fruit::draw_fruit(sf::RenderWindow& window, SpritesAndTextures& sprites_and_textures) const{
-        sprites_and_textures.sprite_of_fruit.setPosition(x*sprites_and_textures.pixel, y*sprites_and_textures.pixel);
-        window.draw(sprites_and_textures.sprite_of_fruit);
+    inline void Fruit::draw_fruit(sf::RenderWindow& window, Sprites& sprites) const{
+        sprites.sprite_of_fruit.setPosition(x*sprites.pixel, y*sprites.pixel);
+        window.draw(sprites.sprite_of_fruit);
     }
 
 #endif // FRUIT_H_INCLUDED
